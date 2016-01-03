@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ==============================================================
+Ant Script - copy war file                                                               
+     ====================================================================== -->
+<project name="CopyTom7" default="default">
+    <description>
+            Copy War to Tom7
+    </description>
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" description="Copy War to Tom7">
+
+    	    <copy file="./target/EmootiBan-1.0.war" tofile="c:/devel2/tom7/webapps/EmootiBan-1.0.war"/>
+    </target>
+
+</project>

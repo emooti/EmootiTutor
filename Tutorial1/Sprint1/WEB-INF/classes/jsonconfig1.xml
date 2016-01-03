@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:servlet="http://www.mulesoft.org/schema/mule/servlet" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax"
+	xmlns:json="http://www.mulesoft.org/schema/mule/json"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/servlet http://www.mulesoft.org/schema/mule/servlet/current/mule-servlet.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/3.2/mule-ajax.xsd">
+  <flow name="helloService">
+    <servlet:inbound-endpoint path="hello" />
+    <component class="org.emooti.helloemooti.HelloEmooti" /> 
+  </flow>
+</mule>
+

@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.emooti</groupId>
+  <artifactId>EmootiBan</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-Sprint1</version>
+  <name>EmootiBan</name>
+  <url>http://maven.apache.org</url>
+    <build>
+    <directory>target</directory>
+    <outputDirectory>target/classes</outputDirectory>
+    <finalName>${project.artifactId}-${project.version}</finalName>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+         <configuration>
+    		<webXml>WEB-INF\web.xml</webXml>        
+  		 </configuration>
+       </plugin>
+       <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <!-- here the phase you need -->
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+               <outputDirectory>${basedir}/target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
+               <resources>
+                     <resource>
+                      <directory>WEB-INF/classes</directory>
+                      <includes>
+                         <include>**/*.xml</include>
+                         <include>**/*.properties</include>
+                      </includes>                      
+                    </resource>  
+               </resources>              
+            </configuration>        
+          </execution>
+          <execution>
+            <id>copy-resources-2</id>
+            <!-- here the phase you need -->
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+               </goals>
+            <configuration>
+             <outputDirectory>${basedir}/target/${project.artifactId}-${project.version}</outputDirectory>
+              <resources>
+                     <resource>
+                      <directory>/</directory>
+                      <includes>
+                         <include>**/*.html</include>
+                         <include>**/*.js</include>
+                         <include>**/*.css</include>  
+                         <include>**/*.jpg</include>                       
+                      </includes>
+                    </resource>  
+              </resources>              
+            </configuration>        
+         
+          </execution>
+ 
+        </executions>
+      </plugin>
+    </plugins>
+
+  </build>
+      <dependencies>
+    <dependency>
+	<groupId>org.mule.modules</groupId>
+	<artifactId>mule-module-tomcat</artifactId>
+	<version>3.5.0-bighorn</version>
+    </dependency>
+    <dependency>
+    <groupId>org.mule.modules</groupId>
+    <artifactId>mule-module-json</artifactId>
+    <version>3.5.0-bighorn</version>
+    </dependency>
+        <dependency>
+	<groupId>org.mule</groupId>
+	<artifactId>mule-core</artifactId>
+	<version>3.5.0-bighorn</version>
+    </dependency>
+        <dependency>
+	<groupId>org.mule.modules</groupId>
+	<artifactId>mule-module-builders</artifactId>
+	<version>3.5.0-bighorn</version>
+    </dependency>
+           <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-http</artifactId>
+            	<version>3.5.0-bighorn</version>
+    </dependency>
+  <dependency>
+  <groupId>org.emooti</groupId>
+  <artifactId>HelloEmooti</artifactId>
+  <version>1.0-sprint1</version>
+  </dependency>
+  <dependency>
+	<groupId>org.mule.transports</groupId>
+	<artifactId>mule-transport-servlet</artifactId>
+	<version>3.5.0-bighorn</version>
+</dependency>
+   </dependencies>
+</project>
