@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ==============================================================
+Ant Script - copy war file                                                               
+     ====================================================================== -->
+<project name="CopyTom7" default="default">
+    <description>
+            Copy War to Tom7 and restart
+    </description>
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+	
+	
+    <target name="default" description="Copy War to Tom7">
+  	  <exec executable="cmd">
+  	    <arg value="/c"/>
+  	    <arg value="c:/devel2/tom7/bin/shutdown.bat"/>
+  	    <arg value="-p"/>
+  	  </exec>
+     <sleep milliseconds="3000"/>
+     <delete includeemptydirs="true">
+    	    <fileset dir="c:/devel2/tom7/webapps" includes="**/*"/>
+      </delete>
+    	
+   	  <copy file="./target/EmootiBan-1.0-Sprint2.war" tofile="c:/devel2/tom7/webapps/EmootiBan.war"/>
+ 
+    	  <exec executable="cmd">
+    	    <arg value="/c"/>
+    	    <arg value="c:/devel2/tom7/bin/startup.bat"/>
+    	    <arg value="-p"/>
+    	  </exec>
+    	
+    </target>
+
+</project>

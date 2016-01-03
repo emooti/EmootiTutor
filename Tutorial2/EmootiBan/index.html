@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ampel Sprint2</title> 
+		<link href="styles/my_style.css" rel="stylesheet">
+		<style>
+			canvas{
+				float: left;
+			}
+		</style>
+		<script src="./scripts/Chart.js"></script>
+		
+	</head> 
+	<body>
+		<div id="main">
+		<table border="0"><tr><td>
+			<div class="green"><img src="images/green.jpg"/></div>
+			<div class="orange"><img src="images/orange.jpg"/></div>
+			<div class="red"><img src="images/red.jpg"/></div>
+			</td></tr>
+		    <tr><td>
+		    <div id="text" class="text">
+			<p>
+			@: <input type="text" name="att" id="att" size="50"/><br>
+			Hash: <input type="text" name="hash" id="hash" size="80"/><br>
+	        { <input type="text" name="comment" id="comment" size="90"/>}<br>
+	        </td></tr>
+	        <tr><td>
+	        <div style="width:900px;height:320px;">
+				<canvas id="line" height="300" width="200"></canvas>
+			</div>
+	        </td></tr>
+	        </table>
+			</div>
+		</div>
+		
+		
+		<script src="scripts/jquery-1.6.2.min.js"></script>
+		<script>
+		function makelineChartData1(label, data){
+			var lineChartData1 = "{labels : [";
+			//var lineChartData2="\"#Vertrauen\",\"#Konfliktfaehigkeit\",\"#Commitment\",\"#Verantwortlichkeit\",\"#Ergebnisorientierung\"";
+			var lineChartData2=label;
+			var lineChartData3="],datasets : [{fillColor : \"rgba(220,220,220,0.5)\",strokeColor : \"rgba(220,220,220,1)\",pointColor : \"rgba(220,220,220,1)\",pointStrokeColor : \"#fff\",	data : [";
+			//var lineChartData4="30,60,30,70,55";
+			var lineChartData4=data;
+
+			var lineChartData5="]}]}";
+			alert("linechartdata1"+lineChartData1+lineChartData2+lineChartData3+lineChartData4+lineChartData5);
+			return eval('('+lineChartData1+lineChartData2+lineChartData3+lineChartData4+lineChartData5+')');
+		}
+
+		
+		function getChart(){
+			var xx="....";
+			var jj;
+			var linechartdata1="";
+            var att=document.getElementById("att");
+            var mooti = new Object();
+    		mooti.att=att.value;
+ 
+			$.ajax({
+				type : "GET",
+				crossDomain: true,
+				dataType : "json",
+				data : "att="+att.value,
+				url : "./services/happyIndex",
+				complete : function(jqXHR, textStatus) {
+				alert("jqXHR:"+jqXHR.responseText);
+				jj = $.parseJSON(jqXHR.responseText);
+				xx=jqXHR.responseText;
+				//alert(jj.design);
+				//alert(jj.num);
+				//alert("getGreen jj:"+jj);
+				//alert("jj.data:"+jj.data);
+				//alert("jj.label:"+jj.label);
+				linechartdata1=makelineChartData1(jj.label, jj.data);
+				
+				//alert("linechartdata1:"+linechartdata1);
+				//xx=xx+"<pre> go."+jj.num+" "+jj.emooti[1].emootiID + "</pre>";
+							//if (jj.data.length > 0) {	
+								//$.each(jj.emooti,function() {
+								//	var info = '<li>ID: ' +  this.emootiID + '</li>';
+								//	xx=xx+info;
+								//	})
+								//}
+				},
+				error: function( xhr, status, errorThrown ) {
+					alert( "Sorry, there is a problem! "+errorThrown+" "+xhr.responseText);
+					}
+				});
+			
+	    alert(".."); // notwendig
+		return linechartdata1;
+		}
+		
+		$(document).ready(function() {
+			$(".orange").click( function() {
+				$(".orange p").remove();
+                    $(".red p").remove();
+                    $(".green p").remove();
+                    var hash=document.getElementById("hash");
+                    var att=document.getElementById("att");
+                    var comment=document.getElementById("comment");
+                    var mooti = new Object();
+            		mooti.emootiID="06.00.02";
+            		mooti.att=att.value;
+            		mooti.hash=hash.value;
+            		mooti.comment=comment.value;
+            		$.ajax({
+            		    type: "POST",
+            		    url: "./services/emootibantransformer",
+            		    contentType: "application/json",
+            		    data: JSON.stringify(mooti)
+            		})
+		        var orange_msg = "<p>You clicked orange!!</p>";
+		        $(this).append(orange_msg);
+				alert("Vor new Chart Orange:");
+				new Chart(document.getElementById("line").getContext("2d")).Line(getChart());
+			});
+		});
+			
+			$(document).ready(function() {
+				$(".green").click( function() {
+					$(".orange p").remove();
+                        $(".red p").remove();
+	                    $(".green p").remove();
+	                    var hash=document.getElementById("hash");
+	                    var att=document.getElementById("att");
+	                    var comment=document.getElementById("comment");
+	                    var mooti = new Object();
+	            		mooti.emootiID="07.00.02";
+	            		mooti.att=att.value;
+	            		mooti.hash=hash.value;
+	            		mooti.comment=comment.value;
+	            		$.ajax({
+	            		    type: "POST",
+	            		    url: "./services/emootibantransformer",
+	            		    contentType: "application/json",
+	            		    data: JSON.stringify(mooti)
+	            		})
+			        var green_msg = "<p>You clicked green!!</p>";
+			        $(this).append(green_msg);
+					alert("Vor new Chart Green:");
+					new Chart(document.getElementById("line").getContext("2d")).Line(getChart());
+				});
+			});
+			
+			$(document).ready(function() {
+				$(".red").click( function() {
+					$(".orange p").remove();
+                    $(".red p").remove();
+	                $(".green p").remove();
+                    var hash=document.getElementById("hash");
+                    var att=document.getElementById("att");
+                    var comment=document.getElementById("comment");
+                    var mooti = new Object();
+            		mooti.emootiID="05.00.01";
+            		mooti.att=att.value;
+            		mooti.hash=hash.value;
+            		mooti.comment=comment.value;
+            		$.ajax({
+            		    type: "POST",
+            		    url: "./services/emootibantransformer",
+            		    contentType: "application/json",
+            		    data: JSON.stringify(mooti)
+            		})
+			        var red_msg = "<p>You clicked red</p>";
+					$(this).append(red_msg);
+					alert("Vor new Chart Red:");
+					new Chart(document.getElementById("line").getContext("2d")).Line(getChart());
+
+				});
+			});
+			
+			//new Chart(document.getElementById("line").getContext("2d")).Line(makelineChartData());
+	
+	</script>
+	</body>
+</html>
