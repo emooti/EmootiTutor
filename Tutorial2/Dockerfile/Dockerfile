@@ -17,7 +17,7 @@ RUN git init
 RUN git remote add emootitutor https://github.com/emooti/EmootiTutor.git
 RUN git pull emootitutor HEAD
 RUN ls -a
-RUN cd /home/emootitutor/Tutorial1/Emootibantransformer
+RUN cd /home/emootitutor/Tutorial2/Emootibantransformer
 RUN mvn clean compile install
 VOLUME ["/home/emootitutor/EmootiBan"]
 WORKDIR /home/emootitutor/EmootiBan
