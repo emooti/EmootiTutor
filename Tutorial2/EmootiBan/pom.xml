@@ -87,31 +87,31 @@
     </plugins>
 
   </build>
-      <dependencies>
+    <dependencies>
     <dependency>
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-tomcat</artifactId>
-	<version>3.5.0-bighorn</version>
+	<version>3.6.0</version>
     </dependency>
     <dependency>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-json</artifactId>
-    <version>3.5.0-bighorn</version>
+    <version>3.6.0</version>
     </dependency>
         <dependency>
 	<groupId>org.mule</groupId>
 	<artifactId>mule-core</artifactId>
-	<version>3.5.0-bighorn</version>
+	<version>3.6.0</version>
     </dependency>
         <dependency>
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-builders</artifactId>
-	<version>3.5.0-bighorn</version>
+	<version>3.6.0</version>
     </dependency>
            <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-http</artifactId>
-            	<version>3.5.0-bighorn</version>
+            	<version>3.6.0</version>
     </dependency>
   <dependency>
   <groupId>org.emooti</groupId>
@@ -121,7 +121,7 @@
   <dependency>
 	<groupId>org.mule.transports</groupId>
 	<artifactId>mule-transport-servlet</artifactId>
-	<version>3.5.0-bighorn</version>
+	<version>3.6.0</version>
 </dependency>
 
    </dependencies>

@@ -19,8 +19,7 @@
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
-        </configuration>
-    
+        </configuration>  
   </plugin>
   <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -42,6 +41,15 @@
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-surefire-plugin</artifactId>
   </plugin>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <fork>true</fork>
+                <executable>C:\devel_emootitutor\programme\jdk\bin\javac.exe</executable>
+            </configuration>
+        </plugin>
+  
 </plugins>
   </build>
    
