@@ -103,7 +103,7 @@
   <dependency>
   <groupId>org.emooti</groupId>
   <artifactId>HelloEmooti</artifactId>
-  <version>1.0-sprint1</version>
+  <version>1.0-Sprint1</version>
   </dependency>
   <dependency>
 	<groupId>org.mule.transports</groupId>
