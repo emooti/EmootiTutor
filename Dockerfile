@@ -1,4 +1,4 @@
-# Dockerfile
+# Dockerfile Tutorial1
 # GitHub and do a maven build it
 FROM emooti/tutorbase
 MAINTAINER Uta Kapp "utakapp@gmail.com"
