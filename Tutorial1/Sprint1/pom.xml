@@ -45,30 +45,7 @@
                </resources>              
             </configuration>        
           </execution>
-          <execution>
-            <id>copy-resources-2</id>
-            <!-- here the phase you need -->
-            <phase>validate</phase>
-            <goals>
-              <goal>copy-resources</goal>
-               </goals>
-            <configuration>
-             <outputDirectory>${basedir}/target/${project.artifactId}-${project.version}</outputDirectory>
-              <resources>
-                     <resource>
-                      <directory>/</directory>
-                      <includes>
-                         <include>**/*.html</include>
-                         <include>**/*.js</include>
-                         <include>**/*.css</include>  
-                         <include>**/*.jpg</include>                       
-                      </includes>
-                    </resource>  
-              </resources>              
-            </configuration>        
          
-          </execution>
- 
         </executions>
       </plugin>
     </plugins>
