@@ -1,10 +1,10 @@
-# Dockerfile
+# Dockerfile Tutorial1
 # GitHub and do a maven build it
 FROM emooti/tutorbase
 MAINTAINER Uta Kapp "utakapp@gmail.com"
 RUN apt-get -y update
 
-ENV REFRESHED_AT 2016-02-29
+ENV REFRESHED_AT 2016-03-23
 ENV MAVEN_OPTS="-Xms512m -Xmx2048m -XX:MaxPermSize=512m"
 ENV GIT_DISCOVERY_ACROSS_FILESYSTEM 1
 RUN mkdir /emootitutor
@@ -19,6 +19,9 @@ VOLUME ["/emootitutor/Tutorial1/Sprint1"]
 WORKDIR /emootitutor/Tutorial1/Sprint1
 RUN cd /emootitutor/Tutorial1/Sprint1 && mvn clean package
 RUN cd /emootitutor/Tutorial1/Sprint1 && ls
+RUN cd /emootitutor/Tutorial1 && chmod +x ci.sh
 # build war when executing container
-#ENTRYPOINT ["/usr/share/maven/bin/mvn" "clean" "package"]
+# ENTRYPOINT ["/bin/bash" "/emootitutor/Tutorial1/ci.sh"]
 #CMD []
+
+
