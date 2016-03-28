@@ -4,12 +4,9 @@
   <groupId>org.emooti</groupId>
   <artifactId>EmootiBan</artifactId>
   <packaging>war</packaging>
-  <version>1.0-Sprint2</version>
+  <version>1.0-Sprint1</version>
   <name>EmootiBan</name>
   <url>http://maven.apache.org</url>
-  <properties>
-    <my.tomcat.path>c:\devel2\tom7\webapps</my.tomcat.path>
-  </properties>
     <build>
     <directory>target</directory>
     <outputDirectory>target/classes</outputDirectory>
@@ -21,8 +18,8 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>2.3</version>
          <configuration>
-    		<webXml>WEB-INF\web.xml</webXml>   
-    		<!-- <outputDirectory>${my.tomcat.path}</outputDirectory>  -->
+    		<webXml>WEB-INF\web.xml</webXml> 
+    		<forkMode>never</forkMode>
   		 </configuration>
        </plugin>
        <plugin>
@@ -72,22 +69,12 @@
             </configuration>        
          
           </execution>
- 
         </executions>
       </plugin>
-      <plugin>
-            <groupId>org.apache.tomcat.maven</groupId>
-            <artifactId>tomcat7-maven-plugin</artifactId>
-            <version>2.0-SNAPSHOT</version>
-            <configuration>
-                <path>/EmootiBan</path>
-                <contextReloadable>true</contextReloadable>
-            </configuration>
-        </plugin>
     </plugins>
 
   </build>
-    <dependencies>
+      <dependencies>
     <dependency>
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-tomcat</artifactId>
@@ -108,12 +95,12 @@
 	<artifactId>mule-module-builders</artifactId>
 	<version>3.6.0</version>
     </dependency>
-           <dependency>
-            <groupId>org.mule.transports</groupId>
-            <artifactId>mule-transport-http</artifactId>
-            	<version>3.6.0</version>
+    <dependency>
+        <groupId>org.mule.transports</groupId>
+        <artifactId>mule-transport-http</artifactId>
+       	<version>3.6.0</version>
     </dependency>
-  <dependency>
+ <dependency>
   <groupId>org.emooti</groupId>
   <artifactId>EmootiBanTransformer</artifactId>
   <version>1.0.1-Sprint2</version>
@@ -122,7 +109,6 @@
 	<groupId>org.mule.transports</groupId>
 	<artifactId>mule-transport-servlet</artifactId>
 	<version>3.6.0</version>
-</dependency>
-
-   </dependencies>
+  </dependency>
+ </dependencies>
 </project>
