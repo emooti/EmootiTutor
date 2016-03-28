@@ -51,7 +51,7 @@
             <!-- here the phase you need -->
             <phase>validate</phase>
             <goals>
-              <goal>copy-resources</goal>
+              <goal>copy-resources-2</goal>
                </goals>
             <configuration>
              <outputDirectory>${basedir}/target/${project.artifactId}-${project.version}</outputDirectory>
