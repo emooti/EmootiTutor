@@ -4,7 +4,7 @@
   <groupId>org.emooti</groupId>
   <artifactId>EmootiBan</artifactId>
   <packaging>war</packaging>
-  <version>1.0-Sprint1</version>
+  <version>1.0-Sprint2</version>
   <name>EmootiBan</name>
   <url>http://maven.apache.org</url>
     <build>
@@ -13,6 +13,17 @@
     <finalName>${project.artifactId}-${project.version}</finalName>
     
     <plugins>
+      	<plugin>
+		<groupId>org.apache.tomcat.maven</groupId>
+		<artifactId>tomcat7-maven-plugin</artifactId>
+		<version>2.2</version>
+		<configuration>
+			<url>${deployurl}/manager/text</url>
+			<server>TomcatServer</server>
+			<path>/EmootiBan</path>
+		</configuration>
+	</plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
