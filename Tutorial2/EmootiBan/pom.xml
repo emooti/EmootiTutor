@@ -6,14 +6,14 @@
   <packaging>war</packaging>
   <version>1.0-Sprint2</version>
   <name>EmootiBan</name>
-  <url>http://maven.apache.org</url>
+  <url>http://emooti.org</url>
     <build>
     <directory>target</directory>
     <outputDirectory>target/classes</outputDirectory>
     <finalName>${project.artifactId}-${project.version}</finalName>
     
     <plugins>
-      	<plugin>
+	<plugin>
 		<groupId>org.apache.tomcat.maven</groupId>
 		<artifactId>tomcat7-maven-plugin</artifactId>
 		<version>2.2</version>
@@ -29,12 +29,12 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>2.3</version>
          <configuration>
-    		<webXml>WEB-INF\web.xml</webXml> 
-    		<forkMode>never</forkMode>
+    		<webXml>WEB-INF\web.xml</webXml>   
+    		<!-- <outputDirectory>${my.tomcat.path}</outputDirectory>  -->
   		 </configuration>
        </plugin>
        <plugin>
-         <artifactId>maven-resources-plugin</artifactId>
+        <artifactId>maven-resources-plugin</artifactId>
         <version>2.7</version>
         <executions>
           <execution>
@@ -52,14 +52,15 @@
                       <includes>
                          <include>**/*.xml</include>
                          <include>**/*.properties</include>
-                      </includes>
-                    </resource>
-               </resources>
-            </configuration>
-         </execution>
-         <execution>
-         <id>copy-resources-2</id>
-         <phase>validate>/</phase>
+                      </includes>                      
+                    </resource>  
+               </resources>              
+            </configuration>        
+          </execution>
+          <execution>
+            <id>copy-resources-2</id>
+            <!-- here the phase you need -->
+            <phase>validate</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
@@ -71,20 +72,30 @@
                       <includes>
                          <include>**/*.html</include>
                          <include>**/*.js</include>
-                         <include>**/*.css</include>
-                         <include>**/*.jpg</include>
+                         <include>**/*.css</include>  
+                         <include>**/*.jpg</include>                       
                       </includes>
-                    </resource>
-              </resources>
-            </configuration>
-
+                    </resource>  
+              </resources>              
+            </configuration>        
+         
           </execution>
+ 
         </executions>
       </plugin>
-      </plugins>
+      <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat7-maven-plugin</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <configuration>
+                <path>/EmootiBan</path>
+                <contextReloadable>true</contextReloadable>
+            </configuration>
+        </plugin>
+    </plugins>
 
   </build>
-      <dependencies>
+    <dependencies>
     <dependency>
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-tomcat</artifactId>
@@ -105,12 +116,12 @@
 	<artifactId>mule-module-builders</artifactId>
 	<version>3.6.0</version>
     </dependency>
-    <dependency>
-        <groupId>org.mule.transports</groupId>
-        <artifactId>mule-transport-http</artifactId>
-       	<version>3.6.0</version>
+           <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-http</artifactId>
+            	<version>3.6.0</version>
     </dependency>
- <dependency>
+  <dependency>
   <groupId>org.emooti</groupId>
   <artifactId>EmootiBanTransformer</artifactId>
   <version>1.0.1-Sprint2</version>
@@ -119,6 +130,7 @@
 	<groupId>org.mule.transports</groupId>
 	<artifactId>mule-transport-servlet</artifactId>
 	<version>3.6.0</version>
-  </dependency>
- </dependencies>
+</dependency>
+
+   </dependencies>
 </project>
