@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:servlet="http://www.mulesoft.org/schema/mule/servlet" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax"
+	xmlns:json="http://www.mulesoft.org/schema/mule/json"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/servlet http://www.mulesoft.org/schema/mule/servlet/current/mule-servlet.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/3.2/mule-ajax.xsd">
+  <flow name="helloService">
+    <servlet:inbound-endpoint path="hello" />
+    <component class="org.emooti.emootibantransformer.HelloEmooti" /> 
+  </flow>
+    <flow name="helloGreen">
+    <servlet:inbound-endpoint path="green" />
+    <component class="org.emooti.emootibantransformer.Green" /> 
+    <set-property propertyName="Access-Control-Allow-Origin" value="*" />
+    <json:object-to-json-transformer doc:name="Object to JSON"/>
+  </flow>
+  <flow name="happyIndex">
+    <servlet:inbound-endpoint path="happyIndex" />
+    <component class="org.emooti.emootibantransformer.EmootiHappyIndex" /> 
+    <set-property propertyName="Access-Control-Allow-Origin" value="*" />
+    <json:object-to-json-transformer doc:name="Object to JSON"/>
+  </flow>
+  
+  <flow name="emootibantransformerout">
+    <servlet:inbound-endpoint path="emootibantransformerout" />
+    <component class="org.emooti.emootibantransformer.EmootiBanTransformer" />  
+    <set-property propertyName="Access-Control-Allow-Origin" value="*" />
+  </flow>
+  
+<flow doc:name="emootibantransformer" name="emootibantransformer">
+        <servlet:inbound-endpoint doc:description="This endpoint receives an HTTP message." doc:name="HTTP" path="emootibantransformer"/>
+        <component class="org.emooti.emootibantransformer.EmootiBanTransformer" />
+        <set-property propertyName="Access-Control-Allow-Origin" value="*" />
+    </flow>
+  
+  <flow name="httpCORS" doc:name="httpCORS">
+	<servlet:inbound-endpoint path="myawesomapi" />
+	<set-payload value="Hello Worlds" />
+	<set-property propertyName="Access-Control-Allow-Origin" value="*" />
+	</flow>
+</mule>
+
