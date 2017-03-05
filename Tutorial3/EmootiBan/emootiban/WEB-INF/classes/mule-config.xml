@@ -10,16 +10,6 @@ http://www.mulesoft.org/schema/mule/servlet http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/3.2/mule-ajax.xsd">
-  <flow name="helloService">
-    <servlet:inbound-endpoint path="hello" />
-    <component class="org.emooti.emootibantransformer.HelloEmooti" /> 
-  </flow>
-    <flow name="helloGreen">
-    <servlet:inbound-endpoint path="green" />
-    <component class="org.emooti.emootibantransformer.Green" /> 
-    <set-property propertyName="Access-Control-Allow-Origin" value="*" />
-    <json:object-to-json-transformer doc:name="Object to JSON"/>
-  </flow>
   <flow name="happyIndex">
     <servlet:inbound-endpoint path="happyIndex" />
     <component class="org.emooti.emootibantransformer.EmootiHappyIndex" /> 
@@ -29,13 +19,13 @@ http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/aja
   
   <flow name="emootibantransformerout">
     <servlet:inbound-endpoint path="emootibantransformerout" />
-    <component class="org.emooti.emootibantransformer.EmootiBanTransformer" />  
+    <component class="org.emooti.emootiban.EmootiBanTransformer" />  
     <set-property propertyName="Access-Control-Allow-Origin" value="*" />
   </flow>
   
 <flow doc:name="emootibantransformer" name="emootibantransformer">
         <servlet:inbound-endpoint doc:description="This endpoint receives an HTTP message." doc:name="HTTP" path="emootibantransformer"/>
-        <component class="org.emooti.emootibantransformer.EmootiBanTransformer" />
+        <component class="org.emooti.emootiban.EmootiBanTransformer" />
         <set-property propertyName="Access-Control-Allow-Origin" value="*" />
     </flow>
   
