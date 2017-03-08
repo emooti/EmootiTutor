@@ -10,10 +10,6 @@ http://www.mulesoft.org/schema/mule/servlet http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/3.2/mule-ajax.xsd">
-  <flow name="helloService">
-    <servlet:inbound-endpoint path="hello" />
-    <component class="org.emooti.emootibantransformer.HelloEmooti" /> 
-  </flow>
     <flow name="helloGreen">
     <servlet:inbound-endpoint path="green" />
     <component class="org.emooti.emootibantransformer.Green" /> 
