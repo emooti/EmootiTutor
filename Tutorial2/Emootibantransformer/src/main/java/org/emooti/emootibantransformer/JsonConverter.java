@@ -25,6 +25,7 @@ public class JsonConverter {
 				}
 			return map;
 			}
+
 		
 		public static String maptoJson(Map<String, String> map)
 			{
@@ -38,6 +39,34 @@ public class JsonConverter {
             		e.printStackTrace();
             	}
 			return json;
-
+			}
+		
+		public static String maptoJsonMap(HashMap<String, HashMap> map)
+			{
+			String json="";
+			
+			for (Map.Entry me : map.entrySet()) 
+				{
+				String key=me.getKey().toString();
+				
+				Object nextMap=(Object)(me.getValue());
+				if (nextMap instanceof HashMap)
+					{
+					
+				        try {
+				            ObjectMapper mapper = new ObjectMapper();
+				
+				            //convert map to JSON string
+				            json = mapper.writeValueAsString(map);
+				        	} catch (Exception e) {
+				        		e.printStackTrace();
+				        		}
+				     json=json+"{“+key+“:"+maptoJsonMap((HashMap)nextMap)+"}";
+					}
+				}
+			System.out.println("{“+key+“:"+json+"}");
+			return "{“+key+“:"+json+"}";
+	
 			}
 }
+

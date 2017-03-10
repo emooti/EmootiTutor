@@ -1,0 +1,37 @@
+div{
+	float:left;
+	border: solid #ffffff 3px;
+	text-align:Center;
+}
+.white{
+	height:100%;
+}
+.green{
+	height:100%;
+}
+.orange{
+	height:100%;
+}
+.red{
+	height:100%;
+}
+.black{
+	height:100%;
+}
+.text{
+	text-align:left;
+	float:bottom;
+	position: left; 
+}
+
+#header{
+ 	width:100%;
+ 	border: 0px;
+ 	height:60px;
+}
+
+#main{
+	background-color: #BDBD9D;
+	height: 650px;
+	align: center;
+}

@@ -8,13 +8,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * 
+ * @author utakapp
+ *
+ */
 public class EmootiBanTransformer {
 	
 	private ArrayList <String> al = new ArrayList <String>();
 
 		public String transform(InputStream object) throws IOException
 			{
-	        // 1. get received JSON data from request
+	        // get received JSON data from request
 	        BufferedReader br = new BufferedReader(new InputStreamReader(object));
 	        String json = "";
 	        
@@ -29,7 +34,7 @@ public class EmootiBanTransformer {
 	        
 	        Map <String,String> map = JsonConverter.jsonToMap(json);
 	        
-	        if (cache.size()==0)
+	        if (cache.size()==0) //Testdata for new setuo
 	        	{
 		        map.put("datetime", addDateTime(-2));
 		        cache.add(map);
@@ -50,6 +55,7 @@ public class EmootiBanTransformer {
 	        	item = al.get(i);
 	        	}
 	        
+	        //Convert to Jso String
 	        String json_new=JsonConverter.maptoJson(map);
 			return json_new;
 			}
