@@ -1,165 +1,95 @@
 package org.emooti.emootibantransformer;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-public class EmootiHappyIndexSummary {
+/**
+ * @author utakapp
+ * Create summary for EmootiBan selection
+ */
+public class EmootiHappyIndexSummary implements EmootiBanFields{
 	HashMap<String, HashMap> resultMap = new <String, HashMap> HashMap();
 	
-		public Object find(String input) throws IOException
-			{
-			String query="";
-			if (input!=null && !input.equals(""))
-				{
-
-				query=input.replaceFirst("\\?", "&");
-
-				Map<String, String> map = null;
-				map=getQueryMap(query);
-	        	if (map!=null)
-	        		{
-	        		Set<String> keys = map.keySet();
-	        		for (String key : keys)
-						{
-	        			System.out.println("Name=" + key);
-	        			System.out.println("Value=" + map.get(key));
-						}
-				
-	        		ArrayList<Map <String, String>> foundList = new ArrayList<Map <String, String>>();
-		        
-	        		EmootiBanCache cache = new EmootiBanCache();
-	        		ArrayList <Map <String, String>>al = cache.getCopy();
-	        		for (int i = 0; i < al.size(); i++)
-	        			{
-	        			Map <String, String> item = null; 
-	        			item = al.get(i);
-	        			for (Map.Entry me : item.entrySet()) 
-	        				{
-	    	        		for (String key : keys)
-	    						{
-	        					if ( me.getKey().equals(key) && me.getValue().equals(map.get(key)) )
-			        				{
-	        						foundList.add(item);
-			        				}
-	    						}
-
-	        				}
-	        			}
-	        		/* Prepare for HappyIndex */
-		        
-	        
-	        		ArrayList <String> days = getDays("", 30);
-	        		
-	        
-	        		return generateLineChartData(foundList, days);
-	        		}
-	        	else
-	        		return null;
-
-	        }
 		
-			
-		return "";
-		}
-		
-private Object generateLineChartData(ArrayList <Map <String,String>> al, ArrayList <String> days)
+private boolean timespan(Map item)
 	{
-
-	String start=days.get(0);
-	String end=days.get(days.size()-1);
-	HashMap <String, int []> map = new HashMap <> ();
-	
-    for (int i = 0; i < al.size(); i++) // for each entry in Map
-		{
-		Map <String, String> item = null; 
-		item = al.get(i);
-		boolean found=false;
-		String day="";
-		//Step 1 Is in right datespectrum?
-		for (Map.Entry me : item.entrySet()) 
-			{
-			found=false;
-			if (me.getKey().equals("datetime") )
-				{
-				String aDate=((String)me.getValue()).substring(0, 8);
-				
-				if (start.compareTo(aDate)>=0 && end.compareTo(aDate)<=0)
-					{
-					found=true;
-					day=me.getValue().toString().substring(0, 8);
-					break;
-					}
-				}
-			}
-		
-		int inum=0;
-		String att="";
-		String hash="";
-		if (found)
-		   {			
-			//2. Find @ - group of user map
-			for (Map.Entry me : item.entrySet()) 
-				{
-				if (me.getKey().equals("att") )
-					{
-					att=me.getValue().toString();
-					}
-				}
-			
-			//3. Find # - add to map
-			
-			for (Map.Entry me : item.entrySet()) 
-				{
-				if (me.getKey().equals("hash") )
-					{
-					hash=me.getValue().toString();
-					}
-				}
-
-		
-			//4. Find Color Number
-			String num="00";
-			for (Map.Entry me : item.entrySet()) 
-				{
-				if (me.getKey().equals("emootiID") )
-					{
-					String emootiid=me.getValue().toString()+".";
-					num=emootiid.substring(0, emootiid.indexOf("."));
-					inum = (new Integer(num)).intValue();
-					
-					break;
-					}
-				}
-			EmootiHappyIndexSummaryFillResultMap ehirm = new EmootiHappyIndexSummaryFillResultMap();
-			HashMap <String, HashMap> resultMap = new HashMap();
-			resultMap= ehirm.addToResultMap(resultMap, day, att, hash, num);
-
-			}
-        	String json_new=JsonConverter.maptoJsonMap(resultMap);
-        	return json_new;
-
-		   }
-				
-	HappyIndexData hid = new HappyIndexData();
-	//hid.setData(Data);
-	//hid.setLabel(Label);
-	return (Object)resultMap;
+		return true;
 	}
 
+protected Object summary(ArrayList <HashMap <String,String>> foundList, Map <String, String> map)
+	{	
+		ArrayList<HashMap <String, String>> result=new ArrayList <HashMap <String, String>>();
+		result=generateSummary(foundList);		
+		return result;
+	}
+
+private ArrayList <HashMap <String, String>> generateSummary(ArrayList <HashMap <String,String>> cache)
+	{
+	/**create resultMap from sorted ArrayList*/
+	//Aggregate
+	int i=0;
+	int cachesize=cache.size();
+    while (i<cachesize-1)
+        	{
+    		Map <String, String> item1 = cache.get(i);
+    		Map <String, String> item2 = cache.get(i+1);
+    		
+    		int item1vote=1;
+  		
+    		if (item1!=null && item1.containsKey(vote_f))
+    			{
+    			item1vote=new Integer (item1.get(vote_f));
+     			}
+    		else
+    			{
+    			item1.put(vote_f, "1"); // initialize
+    		    item1vote=1;
+        		}
+  		
+    		String date1 = item1.get(datetime_f).substring(0,8);
+    		String date2 = item2.get(datetime_f).substring(0,8);
+			String color1 = null;
+			String color2 = null;
+
+    		if (item1.containsKey(emootiID_f) && item2.containsKey(emootiID_f))
+    			{
+    			color1 = item1.get(emootiID_f).substring(0,1);
+    			color2 = item2.get(emootiID_f).substring(0,1);
+    			}
+    		
+    		if (date1.equals(date2) && (color1!=null &&color2!=null && color1.equals(color2))
+    					&& item1.get(att_f).equals(item2.get(att_f))
+    					&& item1.get(hashtag_f).equals(item2.get(hashtag_f)) )
+	    			{
+	       			item1vote=item1vote+1;
+	       		    item1.put(item1.get(emootiID_f), new Integer(item1vote).toString());
+	    			cache.remove(i+1);
+	    			cachesize--;
+	    			}
+	    		else
+	    			i++; // Go to next
+    			// Add Vote
+
+    			item1.put(vote_f, new Integer(item1vote).toString());
+    			}
+			 
+         	
+ 
+	return cache;
+		
+	}
 
 private ArrayList getDays(String start, int nrof)
 	{
-	// Generate a String fo Date and Time
+	// Generate a String for Date and Time
 	ArrayList<String> days = new ArrayList<String>();
 	
 	Calendar myCal = new GregorianCalendar();
-	// Einzelne Felder extrahieren:
+	
 	int year = myCal.get( Calendar.YEAR  );
 	int month = myCal.get( Calendar.MONTH );     
 	int day = myCal.get( Calendar.DATE  );
@@ -192,19 +122,4 @@ private ArrayList getDays(String start, int nrof)
 	return days;
 	}	
 
-public static Map<String, String> getQueryMap(String query)
-	{
-    String[] params = query.split("&");
-    Map<String, String> map = new HashMap<String, String>();
-    for (String param : params)
-    	{
-    	if (param!=null && param.contains("="))
-    		{
-    		String name = param.split("=")[0];
-    		String value = param.split("=")[1];
-    		map.put(name, value);
-    		}
-    	}
-    return map;
-	}
 }

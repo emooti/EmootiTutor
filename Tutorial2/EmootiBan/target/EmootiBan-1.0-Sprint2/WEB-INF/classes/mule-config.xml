@@ -40,9 +40,15 @@ http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/aja
         <component class="org.emooti.emootibantransformer.EmootiBanTransformer" />
         <set-property propertyName="Access-Control-Allow-Origin" value="*" />
     </flow>
+ <flow doc:name="appquery" name="query">
+        <servlet:inbound-endpoint doc:description="This endpoint receives an HTTP message." doc:name="HTTP" path="query"/>
+        <component class="org.emooti.emootibantransformer.EmootiBanTransformer" />
+        <set-property propertyName="Access-Control-Allow-Origin" value="*" />
+  </flow>
+ 
   <flow name="result">
     <servlet:inbound-endpoint path="result" />
-    <component class="org.emooti.emootibantransformer.Result" />  
+    <component class="org.emooti.emootibantransformer.EmootiHappyIndexAppData" />  
     <set-property propertyName="Access-Control-Allow-Origin" value="*" />
   </flow>
   

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
+import java.util.HashMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,48 +14,34 @@ import java.io.InputStreamReader;
  * @author utakapp
  *
  */
-public class EmootiBanTransformer {
+public class EmootiBanTransformer implements EmootiBanFields{
 	
-	private ArrayList <String> al = new ArrayList <String>();
-
 		public String transform(InputStream object) throws IOException
 			{
 	        // get received JSON data from request
 	        BufferedReader br = new BufferedReader(new InputStreamReader(object));
 	        String json = "";
+		    EmootiBanCache ebc = new EmootiBanCache();	
+		    if (ebc.size()==0)
+		    	Tester.testdata();
+
 	        
 	        if(br != null){
 	            json = br.readLine();
 	        	}
-	        
-	        if (json !=null && !json.equals(""))
-	        	al.add(json);
-	        
-	        EmootiBanCache cache = new EmootiBanCache();
-	        
-	        Map <String,String> map = JsonConverter.jsonToMap(json);
-	        
-	        if (cache.size()==0) //Testdata for new setuo
-	        	{
-		        map.put("datetime", addDateTime(-2));
-		        cache.add(map);
-		        
-		        map = JsonConverter.jsonToMap(json);
-		        map.put("datetime", addDateTime(-3));
-		        cache.add(map);
-	        	}
-		        
-		        map = JsonConverter.jsonToMap(json);
-		        map.put("datetime", addDateTime(0));
-		        cache.add(map);
-	        
-	        ArrayList <Map <String, String>>al = cache.get();
-	        for (int i = 0; i < al.size(); i++)
-	        	{
-	        	Map <String, String> item = null; 
-	        	item = al.get(i);
-	        	}
-	        
+	        return (transformBan(json));
+			}
+		
+		public String transformBan (String json)
+			{	        	        
+	        Map <String,String> map = JsonConverter.jsonToMap(json);	        
+		    map=verifyMap((HashMap)map);
+		    EmootiBanCache ebc = new EmootiBanCache();	
+		    
+	        String dt = addDateTime(0);
+	        map.put(datetime_f, dt);
+		    ebc.cache.add(map);
+
 	        //Convert to Jso String
 	        String json_new=JsonConverter.maptoJson(map);
 			return json_new;
@@ -85,6 +72,39 @@ public class EmootiBanTransformer {
 			
 			
 			return ((new Long(dt).toString()).concat(new Long(time).toString())).concat( ((new Long(milli+10000)).toString()).substring(1, 5));
+			}
+	
+		
+		private Map verifyMap (HashMap <String, String> map)
+			{
+			Map new_map = new HashMap<String, String>();
+		// add to Map
+			if (map!= null)	
+				{
+				for (Map.Entry me : map.entrySet()) 
+					{
+					if (me.getKey().toString().toLowerCase().equals(vote_f))
+						{
+						String vote=((String)me.getValue());
+						if (vote.equals("1")) //Green
+							{
+							new_map.put(emootiID_f, "7.0.0.0");
+							}
+						if (vote.equals("2")) //Yellow
+							new_map.put(emootiID_f, "5.0.0.0");
+	
+						if (vote.equals("3")) //red
+							new_map.put(emootiID_f, "4.0.0.0");
+
+						}
+					else
+						{
+						new_map.put(me.getKey(), me.getValue());
+						}
+					}
+				}
+			return new_map;
+		
 			}
 	    
 }

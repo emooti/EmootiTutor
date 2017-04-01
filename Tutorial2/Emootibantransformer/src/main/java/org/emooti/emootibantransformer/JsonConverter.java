@@ -41,31 +41,56 @@ public class JsonConverter {
 			return json;
 			}
 		
+		
+		public static String maptoJson(ArrayList<HashMap<String, String>> aList)
+			{
+			String json="";
+			for (int i=0; i<aList.size() &&aList!=null; i++)
+				{
+				HashMap <String,String> aMap = aList.get(i);
+		        try {
+		            ObjectMapper mapper = new ObjectMapper();
+		
+		            //convert map to JSON string
+		            json = json+ mapper.writeValueAsString(aMap);
+		            if (i<aList.size()-1)
+		            	json=json+", ";
+		        	} catch (Exception e) {
+		        		e.printStackTrace();
+		        	}
+				}
+			return json;
+			}
+
+		
 		public static String maptoJsonMap(HashMap<String, HashMap> map)
 			{
 			String json="";
 			
 			for (Map.Entry me : map.entrySet()) 
 				{
-				String key=me.getKey().toString();
-				
+				String key=me.getKey().toString();				
 				Object nextMap=(Object)(me.getValue());
 				if (nextMap instanceof HashMap)
 					{
+					json=json+"\""+key+":";
+				     json=json+maptoJsonMap((HashMap)nextMap);
 					
+					}
+				else
+					{
 				        try {
 				            ObjectMapper mapper = new ObjectMapper();
 				
 				            //convert map to JSON string
 				            json = mapper.writeValueAsString(map);
+				            System.out.println("mapper json...:"+json);
 				        	} catch (Exception e) {
 				        		e.printStackTrace();
 				        		}
-				     json=json+"{“+key+“:"+maptoJsonMap((HashMap)nextMap)+"}";
 					}
 				}
-			System.out.println("{“+key+“:"+json+"}");
-			return "{“+key+“:"+json+"}";
+			return json;
 	
 			}
 }
