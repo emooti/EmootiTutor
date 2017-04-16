@@ -10,6 +10,7 @@ import java.util.Set;
  */
 public class EmootiBanCache implements EmootiBanFields
 {
+	// Static Variable creates memory leak!!
 	public static ArrayList <Map <String, String>> cache = null;
 	
     public EmootiBanCache() {
@@ -37,7 +38,10 @@ public class EmootiBanCache implements EmootiBanFields
 		
 		public ArrayList <Map <String, String>> getCopybyAttributes(Map <String, String> map) 
 			{
+			/* return Cache ordered and selected by Attributes*/
 			ArrayList <Map <String, String>> cacheCopy = new ArrayList <Map<String, String>>();
+			System.out.println("Attributes:"+map);
+
 			
 			for (int i = 0; i < cache.size(); i++)
 		        	{
@@ -62,13 +66,14 @@ public class EmootiBanCache implements EmootiBanFields
 	        		if (found)
 	        			cacheCopy.add(item);
 		        	}
-
+			System.out.println("Cache byAttributes:"+cacheCopy);
 			return cacheCopy;
 			
 			}
 
 		public int size()
 			{
+			/* Size of Cache*/
 			if (cache== null)
 				return 0;
 			return cache.size();

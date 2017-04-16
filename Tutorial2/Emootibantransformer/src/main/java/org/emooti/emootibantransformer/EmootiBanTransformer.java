@@ -23,7 +23,7 @@ public class EmootiBanTransformer implements EmootiBanFields{
 	        String json = "";
 		    EmootiBanCache ebc = new EmootiBanCache();	
 		    if (ebc.size()==0)
-		    	Tester.testdata();
+		    	Tester.testdata(); //Add some Testdata
 
 	        
 	        if(br != null){
@@ -42,38 +42,11 @@ public class EmootiBanTransformer implements EmootiBanFields{
 	        map.put(datetime_f, dt);
 		    ebc.cache.add(map);
 
-	        //Convert to Jso String
+	        //Convert to Json String
 	        String json_new=JsonConverter.maptoJson(map);
 			return json_new;
 			}
-		
-		private String addDateTime(int diff)
-			{
-			// Generate a String for Date and Time
 			
-			Calendar myCal = Calendar.getInstance();
-			// Einzelne Felder extrahieren:
-			int date=0;
-			if (diff != 0)
-				{
-				myCal.add(Calendar.DATE, diff);
-				}
-			int year = myCal.get( Calendar.YEAR  );
-			int mnth = myCal.get( Calendar.MONTH ) + 1;  
-					
-			date = myCal.get( Calendar.DATE);
-			
-			int hour = myCal.get(Calendar.HOUR);
-			int minute = myCal.get(Calendar.MINUTE);
-			int second = myCal.get(Calendar.SECOND);
-			int milli = myCal.get(Calendar.MILLISECOND);
-			long dt=((year)*10000L)+(mnth*100L)+date;
-			long time=(hour*10000L)+(minute*100L)+second;
-			
-			
-			return ((new Long(dt).toString()).concat(new Long(time).toString())).concat( ((new Long(milli+10000)).toString()).substring(1, 5));
-			}
-	
 		
 		private Map verifyMap (HashMap <String, String> map)
 			{
@@ -106,5 +79,31 @@ public class EmootiBanTransformer implements EmootiBanFields{
 			return new_map;
 		
 			}
-	    
+		private String addDateTime(int diff)
+		{
+		// Generate a String for Date and Time
+		
+		Calendar myCal = Calendar.getInstance();
+		// Einzelne Felder extrahieren:
+		int date=0;
+		if (diff != 0)
+			{
+			myCal.add(Calendar.DATE, diff);
+			}
+		int year = myCal.get( Calendar.YEAR  );
+		int mnth = myCal.get( Calendar.MONTH ) + 1;  
+				
+		date = myCal.get( Calendar.DATE);
+		
+		int hour = myCal.get(Calendar.HOUR);
+		int minute = myCal.get(Calendar.MINUTE);
+		int second = myCal.get(Calendar.SECOND);
+		int milli = myCal.get(Calendar.MILLISECOND);
+		long dt=((year)*10000L)+(mnth*100L)+date;
+		long time=(hour*10000L)+(minute*100L)+second;
+		
+		
+		return ((new Long(dt).toString()).concat(new Long(time).toString())).concat( ((new Long(milli+10000)).toString()).substring(1, 5));
+		}
+
 }

@@ -15,6 +15,7 @@ public class Tester implements EmootiBanFields{
 
 		// Tester
 		System.out.println("Hello Tester!");
+		
 		//1. Record
 		String att="Team A";
 		String hashtag="#code";
@@ -108,6 +109,29 @@ public class Tester implements EmootiBanFields{
 		aMap.put(hashtag_f, hashtag);
 		aMap.put("record", "5");
 		aMap.put(vote_f, "3");
+		
+		json=js.maptoJson(aMap);
+        System.out.println(json);
+
+        eb.transformBan(json);
+
+        try
+	        {
+	        Thread.sleep(2000);
+	        
+	        } catch (Exception e) {
+			   System.out.println(e);
+			   }
+
+		att="Team B";
+		emootiId="7.0.0.0"; // Green
+		aMap = new HashMap();
+		aMap.put(emootiID_f, emootiId);
+		aMap.put(att_f, att);
+		aMap.put(hashtag_f, hashtag);
+		aMap.put("record", "6");
+		aMap.put(vote_f, "3");
+
 
 		json=js.maptoJson(aMap);
         System.out.println(json);
@@ -128,6 +152,8 @@ public class Tester implements EmootiBanFields{
 		aMap = new HashMap();
 		aMap.put(att_f, att);
 		aMap.put(hashtag_f, hashtag);
+		att="Team A";
+		aMap.put(att_f, att);
 
         EmootiHappyIndexAppData hi = new EmootiHappyIndexAppData();
         String request=js.maptoJson(aMap);

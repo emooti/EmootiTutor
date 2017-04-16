@@ -18,7 +18,7 @@ public class EmootiHappyIndexAppData implements EmootiBanFields{
 		if (input!=null && !input.equals(""))
 			{
 			Map<String, String> map = null;
-			input="{\"att\": \"Team A\"}";
+			//input="{\"att\": \"Team A\"}"; //Test on Team A
 	
 			if (input.substring(0,1).equals("{"))
 				// json
@@ -41,7 +41,7 @@ public class EmootiHappyIndexAppData implements EmootiBanFields{
 	        
 	    		EmootiBanCache cache = new EmootiBanCache();
 	    		//ArrayList <Map <String, String>>al = cache.getCopy();
-	    		// Ordered
+	    		// Ordered 
 	    		ArrayList <Map <String, String>>al=cache.getCopybyAttributes(map);
 	    		ArrayList<String> sortList = new ArrayList<String>();
 	    		sortList.add(att_f);
@@ -123,7 +123,7 @@ private String craft_result_for_app(ArrayList <HashMap <String,String>> foundLis
 				{
 				last=false;
 				item2=foundList.get(i+1);
-				System.out.println(item2);
+				System.out.println("2"+item2);
 				}
 			else
 				{
@@ -158,9 +158,9 @@ private String craft_result_for_app(ArrayList <HashMap <String,String>> foundLis
 					break;
 				
 				i++;
-				if (i<end-1)
-					item = foundList.get(i);
-				else
+				item = foundList.get(i);
+
+				if (i==end-1)
 					{
 					last=true; //last item
 					}

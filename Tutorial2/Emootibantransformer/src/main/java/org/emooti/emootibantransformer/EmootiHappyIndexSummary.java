@@ -33,51 +33,64 @@ private ArrayList <HashMap <String, String>> generateSummary(ArrayList <HashMap 
 	//Aggregate
 	int i=0;
 	int cachesize=cache.size();
-    while (i<cachesize-1)
+	int item1vote=1;
+
+    while (i<cachesize)
         	{
-    		Map <String, String> item1 = cache.get(i);
-    		Map <String, String> item2 = cache.get(i+1);
-    		
-    		int item1vote=1;
-  		
-    		if (item1!=null && item1.containsKey(vote_f))
+			Map <String, String> item1 = cache.get(i);
+			Map <String, String> item2 = null;		
+
+    		if (i==cachesize-1) //last
     			{
-    			item1vote=new Integer (item1.get(vote_f));
-     			}
+       		    item1.put(item1.get(emootiID_f), new Integer(item1vote).toString());
+       		    i++; 
+    			item1vote++;
+    			}
     		else
     			{
-    			item1.put(vote_f, "1"); // initialize
-    		    item1vote=1;
-        		}
-  		
-    		String date1 = item1.get(datetime_f).substring(0,8);
-    		String date2 = item2.get(datetime_f).substring(0,8);
-			String color1 = null;
-			String color2 = null;
-
-    		if (item1.containsKey(emootiID_f) && item2.containsKey(emootiID_f))
-    			{
-    			color1 = item1.get(emootiID_f).substring(0,1);
-    			color2 = item2.get(emootiID_f).substring(0,1);
-    			}
-    		
-    		if (date1.equals(date2) && (color1!=null &&color2!=null && color1.equals(color2))
-    					&& item1.get(att_f).equals(item2.get(att_f))
-    					&& item1.get(hashtag_f).equals(item2.get(hashtag_f)) )
+	    		item2 = cache.get(i+1);
+	    			  		
+	    		if (item1!=null && item1.containsKey(vote_f))
 	    			{
-	       			item1vote=item1vote+1;
-	       		    item1.put(item1.get(emootiID_f), new Integer(item1vote).toString());
-	    			cache.remove(i+1);
-	    			cachesize--;
-	    			}
+	    			item1vote=new Integer (item1.get(vote_f));
+	     			}
 	    		else
-	    			i++; // Go to next
-    			// Add Vote
-
-    			item1.put(vote_f, new Integer(item1vote).toString());
+	    			{
+	    			item1.put(vote_f, "1"); // initialize
+	    		    item1vote=1;
+	        		}
+	  		
+	    		String date1 = item1.get(datetime_f).substring(0,8);
+	    		String date2 = item2.get(datetime_f).substring(0,8);
+				String color1 = null;
+				String color2 = null;
+	
+	    		if (item1.containsKey(emootiID_f) && item2.containsKey(emootiID_f))
+	    			{
+	    			color1 = item1.get(emootiID_f).substring(0,1);
+	    			color2 = item2.get(emootiID_f).substring(0,1);
+	    			}
+	    		
+	    		if (date1.equals(date2) && (color1!=null && color2!=null && color1.equals(color2))
+	    					&& item1.get(att_f).equals(item2.get(att_f))
+	    					&& item1.get(hashtag_f).equals(item2.get(hashtag_f)) )
+		    			{
+		       		    item1.put(item1.get(emootiID_f), new Integer(item1vote).toString());
+		    			cache.remove(i+1);
+		    			cachesize--;
+		       			item1vote++;
+		    			}
+		    	else
+	    			{
+	       		    item1.put(item1.get(emootiID_f), new Integer(item1vote).toString());
+	       		    i++;
+		    		item1vote=0;
+		    		}
+	    			// Add Vote
+	
+	    		item1.put(vote_f, new Integer(item1vote).toString());
     			}
-			 
-         	
+    		}
  
 	return cache;
 		
