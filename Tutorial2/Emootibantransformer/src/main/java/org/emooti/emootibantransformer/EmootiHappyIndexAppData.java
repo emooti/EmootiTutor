@@ -81,7 +81,7 @@ public class EmootiHappyIndexAppData implements EmootiBanFields{
 	    			{
 	    			EmootiHappyIndexSummary ehp = new EmootiHappyIndexSummary();
 	    			ArrayList <HashMap <String,String>> summary= (ArrayList <HashMap <String,String>>)ehp.summary(foundList, map);
-	        			        		
+	        	    System.out.println("Summary:"+summary);
 	        		String json_new=craft_result_for_app(summary);
 	        		System.out.println("....."+json_new);
 	        	  	
@@ -100,11 +100,16 @@ public class EmootiHappyIndexAppData implements EmootiBanFields{
 
 private String craft_result_for_app(ArrayList <HashMap <String,String>> foundList)
 	{
+	System.out.println("Craft:"+foundList);
 		String craft = "{\"results\":[{";
 		int i=0;
 		HashMap aList = new HashMap();
 		HashMap tags = new HashMap();
 		int end=foundList.size();
+		String green="0";
+		String orange="0";
+		String red="0";
+
 		while (i<end)
 			{
 				
@@ -118,45 +123,47 @@ private String craft_result_for_app(ArrayList <HashMap <String,String>> foundLis
 				{
 				last=false;
 				item2=foundList.get(i+1);
+				System.out.println(item2);
 				}
 			else
 				{
 					//take care of last entry
 				last=true;
 				}
-			String green="0";
-			String orange="0";
-			String red="0";
+			
+			green="0";
+			orange="0";
+			red="0";
+
 			//Prepare
 			while (last || item.get(key).equals(item2.get(key))) // Aggregate
 				{
 				aList.put("hashTag", item.get(hashtag_f));
 				if (item.get("7.0.0.0")!=null)
 					{
-					green=item.get(vote_f);
-					aList.put("green", green);
-
+					green=item.get("7.0.0.0");
 					}
 				
 				if (item.get("5.0.0.0")!=null)
 					{
-					orange=item.get(vote_f);
-					aList.put("orange", orange);
-
+					orange=item.get("5.0.0.0");
 					}
 				
 				if (item.get("4.0.0.0")!=null)
 					{
-					red=item.get(vote_f);
-					aList.put("red", red);
-
+					red=item.get("4.0.0.0");
 					}
+				
+				if (last)
+					break;
 				
 				i++;
 				if (i<end-1)
 					item = foundList.get(i);
 				else
-					break; //last item
+					{
+					last=true; //last item
+					}
 				}
 			
 			aList.put("red", red);
@@ -179,7 +186,11 @@ private String craft_result_for_app(ArrayList <HashMap <String,String>> foundLis
 			aList.put("total_votes", (new Integer(totalvotes)).toString());
 			tags.put(value, aList); // Tags for Team
 			// Go to next Team
+			if (last)
+				break;
+
 			}
+		
 		// add Teams to json
 		HashMap <String, String> item = null; 
 		Set<String> keys = tags.keySet();
@@ -189,11 +200,15 @@ private String craft_result_for_app(ArrayList <HashMap <String,String>> foundLis
 			craft=craft+= JsonConverter.maptoJson((Map<String, String>)tags.get(key));
 			craft=craft+"]}],";
 		}
+		
 	craft=craft+"\"total_team_amount\":"+new Integer(tags.size()).toString()+"}";
+	System.out.println("craft:"+craft);
 	
-	// Shortcut for Test
-	craft="{\"results\": [ {\"team\": \"Team A\",\"tags\": [{\"hashTag\": \"#Code\",\"green\": 28,\"orange\": 21,\"red\": 45,\"total_votes\": 94,\"date\": 1488957464291                       }]}],\"total_team_amount\": 2}";
+	// Test
+	
+	//craft = "{\"results\":[{\"team\":\"Team A\", \"tags\": [{\"orange\":\"4\",\"red\":\"7\",\"date\":\"201703251011560129\",\"green\":\"2\",\"total_votes\":\"13\",\"hashTag\":\"#Code\"}]}],\"total_team_amount\":1}";
 
+	
 	return craft;
 	}
 

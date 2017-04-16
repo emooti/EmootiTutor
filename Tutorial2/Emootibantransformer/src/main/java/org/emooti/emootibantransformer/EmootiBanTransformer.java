@@ -86,15 +86,15 @@ public class EmootiBanTransformer implements EmootiBanFields{
 					if (me.getKey().toString().toLowerCase().equals(vote_f))
 						{
 						String vote=((String)me.getValue());
-						if (vote.equals("1")) //Green
+						if (vote.equals("1")) //Red
 							{
-							new_map.put(emootiID_f, "7.0.0.0");
+							new_map.put(emootiID_f, "4.0.0.0");
 							}
 						if (vote.equals("2")) //Yellow
 							new_map.put(emootiID_f, "5.0.0.0");
 	
-						if (vote.equals("3")) //red
-							new_map.put(emootiID_f, "4.0.0.0");
+						if (vote.equals("3")) //green
+							new_map.put(emootiID_f, "7.0.0.0");
 
 						}
 					else

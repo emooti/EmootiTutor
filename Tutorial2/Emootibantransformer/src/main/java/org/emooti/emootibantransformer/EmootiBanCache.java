@@ -1,10 +1,13 @@
 package org.emooti.emootibantransformer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author utakapp
+ * Cache for EmootiBan
+ */
 public class EmootiBanCache implements EmootiBanFields
 {
 	public static ArrayList <Map <String, String>> cache = null;
